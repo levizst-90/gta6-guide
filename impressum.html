@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum – Launch-Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #0a0510;
+  --bg-soft: #14081c;
+  --pink: #ff2e9a;
+  --magenta: #ff4ecd;
+  --orange: #ff7a18;
+  --sunset: #ffb347;
+  --lilac: #c44dff;
+  --cyan: #3ef0e0;
+  --text: #f7eef8;
+  --muted: #cbb8d6;
+  --card: #1a0c24;
+  --line: rgba(255, 46, 154, .35);
+  --radius: 1.05rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Outfit, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100%;
+}
+a { color: var(--cyan); }
+a:hover { color: var(--sunset); }
+.aff {
+  font-size: .8rem;
+  opacity: .78;
+  text-align: center;
+  margin: 0;
+  padding: .6rem 1rem;
+  background: #07040c;
+  border-bottom: 1px solid var(--line);
+}
+h1, h2, h3, .count-num, .brand {
+  font-family: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: .05em;
+  line-height: 1.05;
+}
+h1 {
+  font-size: clamp(2.7rem, 11vw, 5.8rem);
+  margin: .15rem 0 .55rem;
+  background: linear-gradient(100deg, #ffb347 0%, #ff4d6d 40%, #ff2ea6 70%, #c44dff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 16px rgba(255, 46, 154, .4));
+}
+h2 {
+  font-size: clamp(1.55rem, 4.5vw, 2.15rem);
+  margin: 0 0 .7rem;
+  color: var(--sunset);
+  text-shadow: 0 0 18px rgba(255, 122, 24, .25);
+}
+h2 .num {
+  color: var(--pink);
+  margin-right: .35rem;
+  text-shadow: 0 0 12px rgba(255, 46, 154, .45);
+}
+.wrap {
+  width: min(70rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 2rem 0 2.1rem;
+}
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg,
+      #07030c 0%,
+      #1a0830 26%,
+      #5a1a5c 56%,
+      #ff4d6d 74%,
+      #ff9a3c 86%,
+      #ffd27a 95%,
+      #1a0a14 95.3%,
+      #0a0510 100%);
+}
+.hero-sky::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  width: min(42vw, 16rem);
+  height: min(42vw, 16rem);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, #fff3b0 0%, #ffb347 38%, #ff7a18 62%, #ff2e9a 100%);
+  box-shadow:
+    0 0 4rem 1.4rem rgba(255, 122, 24, .45),
+    0 0 8rem 3rem rgba(255, 46, 154, .28);
+}
+.hero-sky svg {
+  position: absolute;
+  bottom: 0;
+  height: 42%;
+  width: auto;
+  color: #07030c;
+  pointer-events: none;
+}
+.hero-sky .palm-l { left: -1.2rem; }
+.hero-sky .palm-r { right: -1.2rem; transform: scaleX(-1); }
+.hero-inner { position: relative; z-index: 1; text-align: center; padding-top: .4rem; }
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 .55rem;
+  padding: .28rem .7rem;
+  border: 1px solid rgba(255, 179, 71, .55);
+  border-radius: 999px;
+  color: var(--sunset);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: rgba(10, 5, 16, .35);
+}
+.lead {
+  max-width: 38rem;
+  margin: 0 auto 1.4rem;
+  color: var(--text);
+  text-shadow: 0 1px 10px rgba(10, 5, 16, .95), 0 0 18px rgba(10, 5, 16, .8);
+  font-size: 1.02rem;
+}
+.countdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin: 1.15rem auto 0;
+}
+.count-box {
+  min-width: 4.4rem;
+  padding: .7rem .65rem .55rem;
+  background: rgba(10, 5, 16, .62);
+  border: 1px solid rgba(255, 46, 154, .5);
+  border-radius: .8rem;
+  box-shadow: 0 0 18px rgba(255, 46, 154, .18), inset 0 0 12px rgba(255, 46, 154, .08);
+}
+.count-num {
+  display: block;
+  font-size: clamp(1.7rem, 6vw, 2.4rem);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 46, 154, .7);
+}
+.count-label {
+  display: block;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.count-done {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  letter-spacing: .08em;
+  color: var(--sunset);
+  text-shadow: 0 0 16px rgba(255, 122, 24, .5);
+  margin: .4rem 0 0;
+}
+main { padding: 2rem 0 3rem; }
+section {
+  margin: 0 0 2.4rem;
+  padding: 1.25rem 1.15rem 1.35rem;
+  background: linear-gradient(180deg, rgba(26, 12, 36, .92), rgba(16, 8, 24, .88));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px rgba(255, 179, 71, .05), 0 10px 40px rgba(0, 0, 0, .28);
+}
+section p, section li { color: var(--muted); }
+section p { margin: 0 0 .75rem; }
+section ul, section ol { margin: 0 0 .9rem; padding-left: 1.2rem; }
+section li { margin: .32rem 0; }
+.tips {
+  display: grid;
+  gap: .65rem;
+  margin: 1rem 0 1.15rem;
+}
+.tip {
+  padding: .75rem .85rem;
+  border-left: 3px solid var(--pink);
+  background: rgba(255, 46, 154, .07);
+  border-radius: 0 .7rem .7rem 0;
+  color: var(--text);
+  font-size: .95rem;
+}
+.tip strong { color: var(--sunset); }
+.hint {
+  font-size: .82rem;
+  color: var(--muted);
+  margin: .15rem 0 0;
+}
+.grid {
+  display: grid;
+  gap: .9rem;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1.05rem;
+  background: rgba(8, 4, 14, .7);
+  border: 1px solid rgba(196, 77, 255, .28);
+  border-radius: .95rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+.card h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.35rem;
+  color: var(--text);
+  letter-spacing: .04em;
+}
+.card .why {
+  flex: 1;
+  margin: 0 0 .9rem;
+  color: var(--muted);
+  font-size: .92rem;
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: .7rem .8rem;
+  border-radius: .65rem;
+  text-decoration: none;
+  color: #1a0810 !important;
+  font-weight: 700;
+  letter-spacing: .03em;
+  background: linear-gradient(90deg, var(--sunset), var(--pink) 55%, var(--lilac));
+  box-shadow: 0 0 18px rgba(255, 46, 154, .28);
+}
+.btn:hover {
+  filter: brightness(1.08);
+  color: #1a0810 !important;
+}
+.aff-note {
+  display: block;
+  margin-top: .4rem;
+  text-align: center;
+  font-size: .75rem;
+  color: var(--muted);
+  opacity: .85;
+}
+.check {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.check li {
+  position: relative;
+  margin: .45rem 0;
+  padding: .55rem .7rem .55rem 2.3rem;
+  background: rgba(8, 4, 14, .55);
+  border: 1px solid rgba(62, 240, 224, .18);
+  border-radius: .65rem;
+  color: var(--text);
+}
+.check li::before {
+  content: "✓";
+  position: absolute;
+  left: .7rem;
+  top: .5rem;
+  color: var(--cyan);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(62, 240, 224, .7);
+}
+.slot { color: var(--muted); font-size: .95rem; }
+footer {
+  margin-top: 1rem;
+  padding: 1.4rem 1rem 2rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: .9rem;
+  color: var(--muted);
+  background: #07040c;
+}
+footer p { margin: .35rem 0; }
+footer a {
+  color: var(--pink);
+  text-decoration: none;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .82rem;
+  font-weight: 600;
+}
+footer a:hover { color: var(--sunset); }
+.impr h1 { font-size: clamp(2.2rem, 8vw, 3.6rem); }
+.impr-block {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+.back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--cyan);
+  text-decoration: none;
+  font-size: .9rem;
+}
+@media (min-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .tips { grid-template-columns: 1fr 1fr; }
+  section { padding: 1.5rem 1.5rem 1.6rem; }
+  .hero { padding: 2.8rem 0 2.3rem; }
+  .hero-sky svg { height: 50%; }
+}
+@media (min-width: 960px) {
+  .grid { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-hw { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 639px) {
+  .hero-sky svg { height: 26%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+</style>
+</head>
+<body>
+<p class="aff">Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.</p>
+
+<main class="wrap impr" style="padding-top:2rem;">
+  <a class="back" href="index.html">← Zurück zur Startseite</a>
+  <h1>Impressum</h1>
+  <section>
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p class="impr-block">Levi Zill<br>
+    Witzlebenstr. 7<br>
+    14057 Berlin<br>
+    Deutschland</p>
+    <p>Kontakt: <a href="mailto:levi.z.s.t@googlemail.com">levi.z.s.t@googlemail.com</a></p>
+  </section>
+</main>
+<footer>
+<p>Diese Seite enthält Affiliate-Links. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.</p>
+<p><a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>

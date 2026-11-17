@@ -4,77 +4,564 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Launch-Setup für große Open-World-Spiele</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root { color-scheme: light dark; }
-body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 42rem; margin: 0 auto; padding: 1.25rem; }
-h1 { font-size: 1.6rem; }
-h2 { font-size: 1.15rem; margin-top: 1.75rem; }
-.aff { font-size: .9rem; opacity: .85; }
-ul { padding-left: 1.2rem; }
-.slot a { word-break: break-all; }
-footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #8884; font-size: .9rem; }
-.check li { margin: .35rem 0; }
+
+:root {
+  --bg: #0a0510;
+  --bg-soft: #14081c;
+  --pink: #ff2e9a;
+  --magenta: #ff4ecd;
+  --orange: #ff7a18;
+  --sunset: #ffb347;
+  --lilac: #c44dff;
+  --cyan: #3ef0e0;
+  --text: #f7eef8;
+  --muted: #cbb8d6;
+  --card: #1a0c24;
+  --line: rgba(255, 46, 154, .35);
+  --radius: 1.05rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Outfit, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100%;
+}
+a { color: var(--cyan); }
+a:hover { color: var(--sunset); }
+.aff {
+  font-size: .8rem;
+  opacity: .78;
+  text-align: center;
+  margin: 0;
+  padding: .6rem 1rem;
+  background: #07040c;
+  border-bottom: 1px solid var(--line);
+}
+h1, h2, h3, .count-num, .brand {
+  font-family: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: .05em;
+  line-height: 1.05;
+}
+h1 {
+  font-size: clamp(2.7rem, 11vw, 5.8rem);
+  margin: .15rem 0 .55rem;
+  background: linear-gradient(100deg, #ffb347 0%, #ff4d6d 40%, #ff2ea6 70%, #c44dff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 16px rgba(255, 46, 154, .4));
+}
+h2 {
+  font-size: clamp(1.55rem, 4.5vw, 2.15rem);
+  margin: 0 0 .7rem;
+  color: var(--sunset);
+  text-shadow: 0 0 18px rgba(255, 122, 24, .25);
+}
+h2 .num {
+  color: var(--pink);
+  margin-right: .35rem;
+  text-shadow: 0 0 12px rgba(255, 46, 154, .45);
+}
+.wrap {
+  width: min(70rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 2rem 0 2.1rem;
+}
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg,
+      #07030c 0%,
+      #1a0830 26%,
+      #5a1a5c 56%,
+      #ff4d6d 74%,
+      #ff9a3c 86%,
+      #ffd27a 95%,
+      #1a0a14 95.3%,
+      #0a0510 100%);
+}
+.hero-sky::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  width: min(42vw, 16rem);
+  height: min(42vw, 16rem);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, #fff3b0 0%, #ffb347 38%, #ff7a18 62%, #ff2e9a 100%);
+  box-shadow:
+    0 0 4rem 1.4rem rgba(255, 122, 24, .45),
+    0 0 8rem 3rem rgba(255, 46, 154, .28);
+}
+.hero-sky svg {
+  position: absolute;
+  bottom: 0;
+  height: 42%;
+  width: auto;
+  color: #07030c;
+  pointer-events: none;
+}
+.hero-sky .palm-l { left: -1.2rem; }
+.hero-sky .palm-r { right: -1.2rem; transform: scaleX(-1); }
+.hero-inner { position: relative; z-index: 1; text-align: center; padding-top: .4rem; }
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 .55rem;
+  padding: .28rem .7rem;
+  border: 1px solid rgba(255, 179, 71, .55);
+  border-radius: 999px;
+  color: var(--sunset);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: rgba(10, 5, 16, .35);
+}
+.lead {
+  max-width: 38rem;
+  margin: 0 auto 1.4rem;
+  color: var(--text);
+  text-shadow: 0 1px 10px rgba(10, 5, 16, .95), 0 0 18px rgba(10, 5, 16, .8);
+  font-size: 1.02rem;
+}
+.countdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin: 1.15rem auto 0;
+}
+.count-box {
+  min-width: 4.4rem;
+  padding: .7rem .65rem .55rem;
+  background: rgba(10, 5, 16, .62);
+  border: 1px solid rgba(255, 46, 154, .5);
+  border-radius: .8rem;
+  box-shadow: 0 0 18px rgba(255, 46, 154, .18), inset 0 0 12px rgba(255, 46, 154, .08);
+}
+.count-num {
+  display: block;
+  font-size: clamp(1.7rem, 6vw, 2.4rem);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 46, 154, .7);
+}
+.count-label {
+  display: block;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.count-done {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  letter-spacing: .08em;
+  color: var(--sunset);
+  text-shadow: 0 0 16px rgba(255, 122, 24, .5);
+  margin: .4rem 0 0;
+}
+main { padding: 2rem 0 3rem; }
+section {
+  margin: 0 0 2.4rem;
+  padding: 1.25rem 1.15rem 1.35rem;
+  background: linear-gradient(180deg, rgba(26, 12, 36, .92), rgba(16, 8, 24, .88));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px rgba(255, 179, 71, .05), 0 10px 40px rgba(0, 0, 0, .28);
+}
+section p, section li { color: var(--muted); }
+section p { margin: 0 0 .75rem; }
+section ul, section ol { margin: 0 0 .9rem; padding-left: 1.2rem; }
+section li { margin: .32rem 0; }
+.tips {
+  display: grid;
+  gap: .65rem;
+  margin: 1rem 0 1.15rem;
+}
+.tip {
+  padding: .75rem .85rem;
+  border-left: 3px solid var(--pink);
+  background: rgba(255, 46, 154, .07);
+  border-radius: 0 .7rem .7rem 0;
+  color: var(--text);
+  font-size: .95rem;
+}
+.tip strong { color: var(--sunset); }
+.hint {
+  font-size: .82rem;
+  color: var(--muted);
+  margin: .15rem 0 0;
+}
+.grid {
+  display: grid;
+  gap: .9rem;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1.05rem;
+  background: rgba(8, 4, 14, .7);
+  border: 1px solid rgba(196, 77, 255, .28);
+  border-radius: .95rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+.card h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.35rem;
+  color: var(--text);
+  letter-spacing: .04em;
+}
+.card .why {
+  flex: 1;
+  margin: 0 0 .9rem;
+  color: var(--muted);
+  font-size: .92rem;
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: .7rem .8rem;
+  border-radius: .65rem;
+  text-decoration: none;
+  color: #1a0810 !important;
+  font-weight: 700;
+  letter-spacing: .03em;
+  background: linear-gradient(90deg, var(--sunset), var(--pink) 55%, var(--lilac));
+  box-shadow: 0 0 18px rgba(255, 46, 154, .28);
+}
+.btn:hover {
+  filter: brightness(1.08);
+  color: #1a0810 !important;
+}
+.aff-note {
+  display: block;
+  margin-top: .4rem;
+  text-align: center;
+  font-size: .75rem;
+  color: var(--muted);
+  opacity: .85;
+}
+.check {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.check li {
+  position: relative;
+  margin: .45rem 0;
+  padding: .55rem .7rem .55rem 2.3rem;
+  background: rgba(8, 4, 14, .55);
+  border: 1px solid rgba(62, 240, 224, .18);
+  border-radius: .65rem;
+  color: var(--text);
+}
+.check li::before {
+  content: "✓";
+  position: absolute;
+  left: .7rem;
+  top: .5rem;
+  color: var(--cyan);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(62, 240, 224, .7);
+}
+.slot { color: var(--muted); font-size: .95rem; }
+footer {
+  margin-top: 1rem;
+  padding: 1.4rem 1rem 2rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: .9rem;
+  color: var(--muted);
+  background: #07040c;
+}
+footer p { margin: .35rem 0; }
+footer a {
+  color: var(--pink);
+  text-decoration: none;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .82rem;
+  font-weight: 600;
+}
+footer a:hover { color: var(--sunset); }
+.impr h1 { font-size: clamp(2.2rem, 8vw, 3.6rem); }
+.impr-block {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+.back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--cyan);
+  text-decoration: none;
+  font-size: .9rem;
+}
+@media (min-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .tips { grid-template-columns: 1fr 1fr; }
+  section { padding: 1.5rem 1.5rem 1.6rem; }
+  .hero { padding: 2.8rem 0 2.3rem; }
+  .hero-sky svg { height: 50%; }
+}
+@media (min-width: 960px) {
+  .grid { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-hw { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 639px) {
+  .hero-sky svg { height: 26%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 </style>
 </head>
 <body>
 <p class="aff">Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.</p>
-<h1>Launch-Setup für große Open-World-Spiele</h1>
-<p>Große Open-World-Spiele fressen Speicher, brauchen stabile Audio-Hardware und belohnen dich nicht für Last-Minute-Chaos in der Launch-Nacht. Hier steht das schlanke Setup: Konsole wählen, Speicher freimachen oder erweitern, Headset und Bildschirm prüfen, Controller und Kabel bereitlegen.</p>
 
-<h2>1. PS5 oder PS5 Pro – in 30 Sekunden</h2>
-<ul>
-<li>Standard-PS5 (Slim oder Fat): reicht für den Launch.</li>
-<li>PS5 Pro: sinnvoll, wenn du höhere Bildqualität willst und das Geld ohnehin eingeplant hast.</li>
-<li>Xbox Series X|S: ebenfalls Launch-Plattform; Series S hat weniger freien Speicher.</li>
-</ul>
-<p class="slot">Konsolen-Empfehlung folgt, sobald der Preis passt.</p>
+<header class="hero">
 
-<h2>2. Speicher: SSD voll in der Launch-Nacht vermeiden</h2>
-<ol>
-<li>Einstellungen → Speicher öffnen und freien Platz prüfen.</li>
-<li>Alte Spiele auf USB oder M.2 verschieben.</li>
-<li>Installation plus Reserve freihält.</li>
-</ol>
-<p class="slot">Empfehlung: <a href="https://www.amazon.de/dp/B0C48B3RGL?tag=levizest-21" rel="sponsored nofollow">WD_BLACK SN850P 1 TB (PS5-lizenziert)</a> (Affiliate-Link)</p>
+  <div class="hero-sky" aria-hidden="true">
+    <svg class="palm palm-l" viewBox="0 0 220 320" fill="currentColor">
+      <rect x="104" y="150" width="12" height="170" rx="4"/>
+      <path d="M110 150 C40 140 10 80 18 20 C70 70 90 110 110 150 Z"/>
+      <path d="M110 148 C70 100 80 30 130 8 C120 80 120 120 110 148 Z"/>
+      <path d="M112 150 C150 100 200 90 214 40 C170 90 140 130 112 150 Z"/>
+      <path d="M110 152 C50 170 8 160 4 110 C60 140 90 148 110 152 Z"/>
+      <path d="M112 152 C180 165 214 150 218 100 C160 140 130 150 112 152 Z"/>
+    </svg>
+    <svg class="palm palm-r" viewBox="0 0 220 320" fill="currentColor">
+      <rect x="104" y="150" width="12" height="170" rx="4"/>
+      <path d="M110 150 C40 140 10 80 18 20 C70 70 90 110 110 150 Z"/>
+      <path d="M110 148 C70 100 80 30 130 8 C120 80 120 120 110 148 Z"/>
+      <path d="M112 150 C150 100 200 90 214 40 C170 90 140 130 112 150 Z"/>
+      <path d="M110 152 C50 170 8 160 4 110 C60 140 90 148 110 152 Z"/>
+      <path d="M112 152 C180 165 214 150 218 100 C160 140 130 150 112 152 Z"/>
+    </svg>
+  </div>
+  <div class="hero-inner wrap">
+    <p class="eyebrow">Launch · 19.11.2026</p>
+    <h1>Bereit für die Launch-Nacht.</h1>
+    <p class="lead">Große Open-World-Spiele fressen Speicher, brauchen stabile Audio-Hardware und belohnen dich nicht für Last-Minute-Chaos in der Launch-Nacht. Hier steht das schlanke Setup – und der Vorrat für den Durchspiel-Marathon.</p>
+    <div id="countdown" class="countdown" aria-live="polite">
+      <div class="count-box"><span class="count-num" data-unit="d">--</span><span class="count-label">Tage</span></div>
+      <div class="count-box"><span class="count-num" data-unit="h">--</span><span class="count-label">Std.</span></div>
+      <div class="count-box"><span class="count-num" data-unit="m">--</span><span class="count-label">Min.</span></div>
+      <div class="count-box"><span class="count-num" data-unit="s">--</span><span class="count-label">Sek.</span></div>
+    </div>
+  </div>
+</header>
 
-<h2>3. Headset</h2>
-<p>Klarer Mic, bequemer Sitz, stabiler Dongle oder offizielle Kopplung. Weglassen: teures RGB ohne Komfort.</p>
-<p class="slot"><a href="https://www.amazon.de/dp/B0F2G4DKF9?tag=levizest-21" rel="sponsored nofollow">Pulse Elite Midnight Black</a> (Affiliate-Link)</p>
+<main class="wrap">
+  <section>
+    <h2><span class="num">01</span> PS5 oder PS5 Pro – in 30 Sekunden</h2>
+    <ul>
+      <li>Standard-PS5 (Slim oder Fat): reicht für den Launch.</li>
+      <li>PS5 Pro: sinnvoll, wenn du höhere Bildqualität willst und das Geld ohnehin eingeplant hast.</li>
+      <li>Xbox Series X|S: ebenfalls Launch-Plattform; Series S hat weniger freien Speicher.</li>
+    </ul>
+    <p class="slot">Konsolen-Empfehlung folgt, sobald der Preis passt.</p>
+  </section>
 
-<h2>4. Controller</h2>
-<p>Offizielle Pads zuerst. Zweitcontroller vor Launch laden.</p>
-<p class="slot"><a href="https://www.amazon.de/dp/B08H99BPJN?tag=levizest-21" rel="sponsored nofollow">DualSense Glacier White</a> (Affiliate-Link)</p>
+  <section>
+    <h2><span class="num">02</span> Speicher: SSD voll in der Launch-Nacht vermeiden</h2>
+    <ol>
+      <li>Einstellungen → Speicher öffnen und freien Platz prüfen.</li>
+      <li>Alte Spiele auf USB oder M.2 verschieben.</li>
+      <li>Installation plus Reserve freihalten.</li>
+    </ol>
+  </section>
 
-<h2>5. Monitor unter ~300 €</h2>
-<ul>
-<li>27" oder 32", 1440p oder gutes 1080p</li>
-<li>HDMI 2.0+ (besser 2.1)</li>
-<li>120 Hz wenn Konsole und Titel das hergeben</li>
-</ul>
-<p class="slot">Konkretes Modell am Build-Tag nach Preis und Verfügbarkeit.</p>
+  <section>
+    <h2><span class="num">03</span> Headset</h2>
+    <p>Klarer Mic, bequemer Sitz, stabiler Dongle oder offizielle Kopplung. Weglassen: teures RGB ohne Komfort.</p>
+  </section>
 
-<h2>6. Launch-Abend-Checkliste</h2>
-<ul class="check">
-<li>Konsole online, Systemsoftware aktuell</li>
-<li>Genug freier Speicher</li>
-<li>Pre-Load / Code bereit</li>
-<li>Headset geladen</li>
-<li>Zweit-Controller geladen</li>
-<li>HDMI und Monitor-Eingang geprüft</li>
-<li>Internet stabil</li>
-</ul>
+  <section>
+    <h2><span class="num">04</span> Controller</h2>
+    <p>Offizielle Pads zuerst. Zweitcontroller vor Launch laden.</p>
+  </section>
 
-<h2>7. Setup in 60 Sekunden</h2>
-<p>Konsole an → Speicher checken → Headset koppeln → Controller laden → Monitor-Eingang → Titel installieren → fertig.</p>
+  <section>
+    <h2><span class="num">05</span> Monitor unter ~300 €</h2>
+    <ul>
+      <li>27" oder 32", 1440p oder gutes 1080p</li>
+      <li>HDMI 2.0+ (besser 2.1)</li>
+      <li>120 Hz wenn Konsole und Titel das hergeben</li>
+    </ul>
+    <p class="slot">Konkretes Modell am Build-Tag nach Preis und Verfügbarkeit.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> Hardware für die Launch-Nacht</h2>
+    <p>Speicher, Headset, Pad und ein sicherer Stand – das Minimum, bevor der Download startet.</p>
+    <div class="grid grid-hw">
+      <article class="card">
+  <h3>WD_BLACK SN850P 1 TB (PS5-lizenziert)</h3>
+  <p class="why">PS5-lizenzierte SSD, damit Installation und Reserve in der Launch-Nacht Platz haben.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B0C48B3RGL?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Pulse Elite Midnight Black</h3>
+  <p class="why">Klarer Mic, bequemer Sitz, offizielle Kopplung – ohne übertriebenes RGB.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B0F2G4DKF9?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>DualSense Glacier White</h3>
+  <p class="why">Offizielles Pad als geladener Zweitcontroller, wenn der erste leer wird.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B08H99BPJN?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Vertikaler Standfuß für PS5</h3>
+  <p class="why">Hält die Konsole sicher aufrecht und schafft Platz auf dem Schreibtisch.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B0CMXKVZDX?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+    </div>
+  </section>
+
+  <section id="marathon">
+    <h2><span class="num">07</span> Durchspiel-Marathon</h2>
+    <p>Wenn es um die Launch-Nacht geht und darum, wer zuerst durch ist: Plane den Abend wie einen langen Sitz. Kurze Pausen, Wasser in Reichweite, weiches Licht, ein Rücken, der mitmacht – und Controller, die nicht mitten in der Session leer werden.</p>
+    <div class="tips">
+      <div class="tip"><strong>Pausen.</strong> Alle paar Stunden aufstehen, Augen und Hände entlasten. Der Stand bleibt, der Nacken auch.</div>
+      <div class="tip"><strong>Wasser.</strong> Energy Drinks höchstens als Ergänzung. Die Flasche steht neben dem Pad.</div>
+      <div class="tip"><strong>Licht.</strong> Kein stockdunkles Zimmer. Bias-Licht hinter dem Bildschirm ist angenehmer für die Augen.</div>
+      <div class="tip"><strong>Sitzkomfort.</strong> Ein Lendenkissen rettet mehr Sitzungen als ein dritter Energy-Drink.</div>
+    </div>
+    <p class="hint">Energy Drinks: Koffein in Maßen.</p>
+    <div class="grid">
+      <article class="card">
+  <h3>Red Bull Energy Drink, 24 × 250 ml</h3>
+  <p class="why">Kleiner Vorrat für die lange Nacht. Koffein in Maßen.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B01G7F3UGC?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Monster Energy, 12 × 500 ml</h3>
+  <p class="why">Klassischer Energy-Drink für den Marathon. Koffein in Maßen.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B0983VWZ3B?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Pringles Original, 12 × 40 g</h3>
+  <p class="why">Wiederverschließbare Dosen – bleiben auf dem Schreibtisch knusprig.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B00OZEOV9I?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>SIGG Trinkflasche 1 L (Anthracite)</h3>
+  <p class="why">Wasser in Reichweite, als Gegenstück zum Energy-Drink.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B08MLBPNJ3?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>DualSense-Ladestation</h3>
+  <p class="why">Zwei Controller gleichzeitig laden, USB-Ports an der Konsole bleiben frei.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B08H97WTBL?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Qutool Lendenkissen Memory Foam</h3>
+  <p class="why">Memory-Foam für den Rücken, wenn der Sitzabend länger wird.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B08X4BDVDH?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Govee TV-Hintergrundlicht 3 Lite</h3>
+  <p class="why">Weiches Bias-Licht hinter dem Bildschirm, angenehmer in der Nacht.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B0CL6KNT72?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>Lamicall Kopfhörer-Ständer</h3>
+  <p class="why">Headset liegt nicht auf dem Pad und behält seine Form in den Pausen.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B07ZYVVZKD?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+      <article class="card">
+  <h3>50 € PlayStation Store-Guthaben</h3>
+  <p class="why">Guthaben für Titel oder Add-ons, gültig für deutsche PSN-Konten.</p>
+  <a class="btn" href="https://www.amazon.de/dp/B00OGU88KE?tag=levizest-21" rel="sponsored nofollow">Bei Amazon ansehen</a>
+  <span class="aff-note">(Affiliate-Link)</span>
+</article>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span> Launch-Abend-Checkliste</h2>
+    <ul class="check">
+      <li>Konsole online, Systemsoftware aktuell</li>
+      <li>Genug freier Speicher</li>
+      <li>Pre-Load / Code bereit</li>
+      <li>Headset geladen</li>
+      <li>Zweit-Controller geladen</li>
+      <li>HDMI und Monitor-Eingang geprüft</li>
+      <li>Internet stabil</li>
+      <li>Wasser, Snacks und Licht vorbereitet</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">09</span> Setup in 60 Sekunden</h2>
+    <p>Konsole an → Speicher checken → Headset koppeln → Controller laden → Monitor-Eingang → Titel installieren → fertig.</p>
+  </section>
+</main>
 
 <footer>
-<p><strong>Impressum</strong> (Angaben gemäß § 5 DDG)</p>
-<p>Levi Zill<br>
-Witzlebenstr. 7<br>
-14057 Berlin<br>
-Deutschland</p>
-<p>Kontakt: <a href="mailto:levi.z.s.t@googlemail.com">levi.z.s.t@googlemail.com</a></p>
 <p>Diese Seite enthält Affiliate-Links. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.</p>
+<p><a href="impressum.html">Impressum</a></p>
 </footer>
+
+<script>
+(function () {
+  var root = document.getElementById("countdown");
+  if (!root) return;
+  var target = new Date("2026-11-19T00:00:00+01:00");
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function tick() {
+    var diff = target.getTime() - Date.now();
+    if (diff <= 0) {
+      root.innerHTML = "<p class=\"count-done\">Die Launch-Nacht ist da.</p>";
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var map = { d: String(d), h: pad(h), m: pad(m), s: pad(s) };
+    root.querySelectorAll("[data-unit]").forEach(function (el) {
+      el.textContent = map[el.getAttribute("data-unit")];
+    });
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
 </body>
 </html>
